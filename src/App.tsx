@@ -38,7 +38,6 @@ export default function App() {
   const status = useSelector((state: RootState) => state.vacancies.status);
 
   const dispatch = useDispatch<AppDispatch>();
-  console.log(status);
 
   useEffect(() => {
     dispatch(

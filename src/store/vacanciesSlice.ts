@@ -30,8 +30,12 @@ export const fetchVacancies = createAsyncThunk(
     }
     const response = await fetch(`https://api.hh.ru/vacancies?${searchParams}`);
 
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.status}`);
+    }
+
     const data = await response.json();
-    return { items: data.items, totalPages: data.pages };
+    return { items: data.items as Vacancy[], totalPages: data.pages };
   }
 );
 const vacanciesSlice = createSlice({
