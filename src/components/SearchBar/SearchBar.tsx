@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../store/store';
-import { fetchVacancies, setJob } from '../../store/vacanciesSlice';
+import { fetchVacancies, setJob, setPage } from '../../store/vacanciesSlice';
 import { IconSearch } from '@tabler/icons-react';
 import type { KeyboardEvent } from 'react';
 
@@ -27,11 +27,13 @@ export const SearchBar = () => {
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+    dispatch(setPage(1))
       dispatch(
         fetchVacancies({
           search: searchJob,
           area: selectedCity,
           skill: keySkills,
+          page: 0,
         })
       );
     }
@@ -64,13 +66,17 @@ export const SearchBar = () => {
           />
           <Button
             onClick={() =>
+            {dispatch(setPage(1))
               dispatch(
                 fetchVacancies({
                   search: searchJob,
                   area: selectedCity,
                   skill: keySkills,
+                  page: 0
                 })
               )
+            }
+
             }
             pl={22}
             pr={22}

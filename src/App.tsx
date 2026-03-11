@@ -19,9 +19,9 @@ import { VacancyCard } from './components/VacancyCard/VacancyCard';
 import { KeySkills } from './components/KeySkills/KeySkills';
 import { CitySelect } from './components/CitySelect/CitySelect';
 import { SearchBar } from './components/SearchBar/SearchBar';
+import { PaginationVacancies } from './components/PaginationVacancies/PaginationVacancies';
 
 export default function App() {
-  const [activePage, setPage] = useState(1);
 
   const searchJob = useSelector(
     (state: RootState) => state.vacancies.searchJob
@@ -35,27 +35,23 @@ export default function App() {
   const totalPages = useSelector(
     (state: RootState) => state.vacancies.totalPages
   );
+    const currentPage = useSelector(
+    (state: RootState) => state.vacancies.currentPage
+  );
   const status = useSelector((state: RootState) => state.vacancies.status);
 
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    dispatch(
-      fetchVacancies({ search: '', area: 'Все города', skill: keySkills })
-    );
-  }, [dispatch]);
-
-  const handlePageChange = (page: number) => {
-    setPage(page);
-    dispatch(
-      fetchVacancies({
-        search: searchJob,
-        area: selectedCity,
-        skill: keySkills,
-        page: page - 1,
-      })
-    );
-  };
+useEffect(() => {
+  dispatch(
+    fetchVacancies({
+      search: searchJob,
+      area: selectedCity,
+      skill: keySkills,
+      page: currentPage - 1
+    })
+  );
+}, [dispatch, searchJob, selectedCity, keySkills, currentPage]);
 
   return (
     <MantineProvider>
@@ -79,12 +75,7 @@ export default function App() {
                 )}
 
                 {totalPages !== 1 && status === 'resolved' && (
-                  <Pagination
-                    total={totalPages}
-                    withEdges
-                    value={activePage}
-                    onChange={handlePageChange}
-                  />
+                  <PaginationVacancies />
                 )}
               </Stack>
             </Group>

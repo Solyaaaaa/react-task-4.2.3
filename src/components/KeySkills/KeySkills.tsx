@@ -14,7 +14,12 @@ export const KeySkills = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleAdd = () => {
-    dispatch(addSkill(inputValue));
+    const value = inputValue.trim();
+
+    if (!value) return; 
+    if (keySkills.includes(value)) return;
+
+    dispatch(addSkill(value));
     setInputValue('');
   };
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

@@ -47,8 +47,9 @@ const vacanciesSlice = createSlice({
     totalPages: 0,
     searchJob: '',
     city: ['Все города', 'Москва', 'Санкт-Петербург'],
-    selectedCity: '',
+    selectedCity: 'Все города',
     keySkills: ['TypeScript', 'React', 'Redux'],
+    currentPage: 1
   },
 
   reducers: {
@@ -65,6 +66,9 @@ const vacanciesSlice = createSlice({
       state.keySkills = state.keySkills.filter(
         (skill) => action.payload !== skill
       );
+    },
+    setPage: (state, action) => {
+      state.currentPage = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -86,6 +90,6 @@ const vacanciesSlice = createSlice({
   },
 });
 
-export const { setJob, setCity, addSkill, deleteSkill } =
+export const { setJob, setCity, addSkill, deleteSkill, setPage } =
   vacanciesSlice.actions;
 export default vacanciesSlice.reducer;
