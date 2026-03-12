@@ -21,5 +21,6 @@ export interface Vacancy {
     name: string;
   };
   alternate_url: string;
+  description?: string;
 }
 

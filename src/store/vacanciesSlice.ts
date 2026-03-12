@@ -70,6 +70,10 @@ const vacanciesSlice = createSlice({
     setPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    setSkills: (state, action) => {
+      state.keySkills = action.payload;
+    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -90,6 +94,6 @@ const vacanciesSlice = createSlice({
   },
 });
 
-export const { setJob, setCity, addSkill, deleteSkill, setPage } =
+export const { setJob, setCity, addSkill, deleteSkill, setPage, setSkills } =
   vacanciesSlice.actions;
 export default vacanciesSlice.reducer;

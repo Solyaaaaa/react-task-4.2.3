@@ -9,33 +9,23 @@ import {
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../store/store';
-import { fetchVacancies, setJob, setPage } from '../../store/vacanciesSlice';
+import {  setJob, setPage } from '../../store/vacanciesSlice';
 import { IconSearch } from '@tabler/icons-react';
-import type { KeyboardEvent } from 'react';
+import { useState, type KeyboardEvent } from 'react';
 
 export const SearchBar = () => {
-  const searchJob = useSelector(
-    (state: RootState) => state.vacancies.searchJob
-  );
-  const selectedCity = useSelector(
-    (state: RootState) => state.vacancies.selectedCity
-  );
-  const keySkills = useSelector(
-    (state: RootState) => state.vacancies.keySkills
-  );
+    
+
+  const searchJob = useSelector((state: RootState) => state.vacancies.searchJob);
   const dispatch = useDispatch<AppDispatch>();
 
+  const [inputValue, setInputValue] = useState(searchJob);
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-    dispatch(setPage(1))
-      dispatch(
-        fetchVacancies({
-          search: searchJob,
-          area: selectedCity,
-          skill: keySkills,
-          page: 0,
-        })
-      );
+        if (e.key === 'Enter') {
+      dispatch(setJob(inputValue));
+      dispatch(setPage(1));
+      setInputValue('')
     }
   };
   return (
@@ -49,7 +39,8 @@ export const SearchBar = () => {
         </Stack>
         <Group gap={12} wrap="nowrap" w={510}>
           <Input
-            onChange={(e) => dispatch(setJob(e.target.value))}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Должность или название компании"
             styles={{
@@ -66,17 +57,11 @@ export const SearchBar = () => {
           />
           <Button
             onClick={() =>
-            {dispatch(setPage(1))
-              dispatch(
-                fetchVacancies({
-                  search: searchJob,
-                  area: selectedCity,
-                  skill: keySkills,
-                  page: 0
-                })
-              )
+            {
+                dispatch(setJob(inputValue));
+                dispatch(setPage(1))
+                setInputValue('')
             }
-
             }
             pl={22}
             pr={22}

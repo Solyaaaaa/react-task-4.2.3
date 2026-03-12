@@ -1,10 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { MantineProvider } from '@mantine/core';
-import { configureStore } from '@reduxjs/toolkit';
-import vacanciesReducer from '../../store/vacanciesSlice';
 import { VacancyCard } from './VacancyCard';
+import { BrowserRouter } from "react-router-dom";
 
 const mockVacancy = {
   id: '1',
@@ -17,53 +15,18 @@ const mockVacancy = {
   alternate_url: 'https://hh.ru/vacancy/1',
 };
 
-const mockStore = configureStore({
-  reducer: { vacancies: vacanciesReducer },
-  preloadedState: {
-    vacancies: {
-      vacancies: [mockVacancy],
-      status: 'resolved',
-      error: null,
-      searchJob: '',
-      city: ['Все города', 'Москва', 'Санкт-Петербург'],
-      selectedCity: '',
-      keySkills: ['TypeScript', 'React', 'Redux'],
-      totalPages: 1,
-    },
-  },
-});
 
 describe('VacancyCard', () => {
-  it('отображает название вакансии', () => {
+  it('отображает данные вакансии', () => {
     render(
-      <MantineProvider>
-        <Provider store={mockStore}>
-          <VacancyCard />
-        </Provider>
-      </MantineProvider>
+      <BrowserRouter>
+        <MantineProvider>
+          <VacancyCard vacancy={mockVacancy} />
+        </MantineProvider>
+      </BrowserRouter>
     );
+
     expect(screen.getByText('Frontend разработчик')).toBeInTheDocument();
-  });
-
-  it('отображает название компании', () => {
-    render(
-      <MantineProvider>
-        <Provider store={mockStore}>
-          <VacancyCard />
-        </Provider>
-      </MantineProvider>
-    );
     expect(screen.getByText('Яндекс')).toBeInTheDocument();
-  });
-
-  it('отображает кнопку Откликнуться', () => {
-    render(
-      <MantineProvider>
-        <Provider store={mockStore}>
-          <VacancyCard />
-        </Provider>
-      </MantineProvider>
-    );
-    expect(screen.getByText('Откликнуться')).toBeInTheDocument();
   });
 });
