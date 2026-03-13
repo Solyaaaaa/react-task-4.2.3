@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { Provider } from 'react-redux'
 import { store } from './store/store.ts'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { MantineProvider } from '@mantine/core'
 
 
@@ -11,11 +11,11 @@ import { MantineProvider } from '@mantine/core'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename="/react-task-4.2.3">
+      <HashRouter basename="/react-task-4.2.3">
         <MantineProvider>
           <App />
         </MantineProvider>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </StrictMode>,
 )
