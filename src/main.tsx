@@ -11,7 +11,7 @@ import { MantineProvider } from '@mantine/core'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <HashRouter basename="/react-task-4.2.3">
+      <HashRouter>
         <MantineProvider>
           <App />
         </MantineProvider>
