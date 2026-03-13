@@ -54,7 +54,7 @@ export const VacanciesPage = () => {
     if (text) dispatch(setJob(text));
     if (area) dispatch(setCity(area));
     if (skills.length > 0) dispatch(setSkills(skills));
-  }, []);
+  }, [text, area, skills.join(',')]);
 
   useEffect(() => {
     const params = new URLSearchParams();
