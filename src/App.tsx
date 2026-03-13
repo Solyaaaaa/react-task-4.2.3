@@ -5,7 +5,7 @@ import { VacancyPage } from './pages/VacancyPage';
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/vacancies" />} />
+      <Route path="/" element={<Navigate to="*/vacancies" />} />
 
       <Route path="/vacancies" element={<VacanciesPage />} />
 
