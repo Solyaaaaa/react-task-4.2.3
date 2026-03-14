@@ -1,11 +1,16 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { VacanciesPage } from './pages/VacanciesPage';
-import { VacancyPage } from './pages/VacancyPage';
+import { lazy, Suspense } from 'react';
+import { Loader } from '@mantine/core';
+
+const VacanciesPage = lazy(() => import('./pages/VacanciesPage'));
+const VacancyPage = lazy(() => import('./pages/VacancyPage'));
+
 
 export default function App() {
   return (
+    <Suspense fallback={<Loader color="blue" type="dots" />}>
     <Routes>
-      <Route path="/" element={<Navigate to="*/vacancies" />} />
+      <Route path="/" element={<Navigate to="/vacancies" />} />
 
       <Route path="/vacancies" element={<VacanciesPage />} />
 
@@ -13,5 +18,7 @@ export default function App() {
 
       <Route path="*" element={<Navigate to="/vacancies" />} />
     </Routes>
+    </Suspense>
+
   );
 }

@@ -24,7 +24,7 @@ import { SearchBar } from '../components/SearchBar/SearchBar';
 import { PaginationVacancies } from '../components/PaginationVacancies/PaginationVacancies';
 import { useSearchParams } from 'react-router-dom';
 
-export const VacanciesPage = () => {
+ const VacanciesPage = () => {
   const searchJob = useSelector(
     (state: RootState) => state.vacancies.searchJob
   );
@@ -108,3 +108,5 @@ export const VacanciesPage = () => {
     </AppShell>
   );
 };
+
+export default VacanciesPage;

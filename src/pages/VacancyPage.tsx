@@ -5,7 +5,7 @@ import { HeaderVacancy } from '../components/HeaderVacancy/HeaderVacancy';
 import { AppShell, Container, Paper } from '@mantine/core';
 import type { Vacancy } from '../types/vacancy';
 
-export const VacancyPage = () => {
+const VacancyPage = () => {
   const { id } = useParams();
   const [dataVacancy, setDataVacancy] = useState<Vacancy | null>(null);
 
@@ -56,3 +56,6 @@ export const VacancyPage = () => {
     </AppShell>
   );
 };
+
+export default VacancyPage;
+
